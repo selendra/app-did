@@ -35,37 +35,19 @@ import 'package:encrypt/encrypt.dart';
 
 class ApiProvider with ChangeNotifier {
   
+  // Private
   WalletSDK _sdk = WalletSDK();
-
   Keyring _keyring = Keyring();
   MyApiKeyring? _apiKeyring;
-
-  Keyring get getKeyring => _keyring;
-  WalletSDK get getSdk => _sdk;
-  MyApiKeyring get apiKeyring => _apiKeyring!;
-  
   String _defaultAddr = "5HnLfzCVR9vuM1z2fmZqsNazPqw6FzBJwr42HQRebmu6R4hH";
-
-  // KeyringStorage _keyringStorage = KeyringStorage();
-  // LocalStorage _storageOld = LocalStorage();
-  // KeyringStorage _storage = KeyringStorage();
-
+  String _sldDid = "wss://selendra-did.selendra.org";
+  bool _isConnected = false;
+  String? _jsCode;
+  
+  // Public
   static const int bitcoinDigit = 8;
 
-  num bitcoinSatFmt = pow(10, 8);
-
-  double amount = 0.0008;
-
-  bool _isConnected = false;
-
-  String btcAdd = '';
-
-  // ContractProvider? contractProvider;
-
   AccountM accountM = AccountM();
-
-  String? _jsCode;
-
   bool isMainnet = true;
   
   int selNativeIndex = 0;
@@ -78,8 +60,18 @@ class ApiProvider with ChangeNotifier {
   int btcIndex = 7;
   int attIndex = 8;
 
-  bool get isConnected => _isConnected;
+  num bitcoinSatFmt = pow(10, 8);
 
+  double amount = 0.0008;
+
+  String btcAdd = '';
+
+  // Getter
+  Keyring get getKeyring => _keyring;
+  WalletSDK get getSdk => _sdk;
+  MyApiKeyring get apiKeyring => _apiKeyring!;
+  bool get isConnected => _isConnected;
+  
   Future<void> initApi({@required BuildContext? context}) async {
     print("hello initApi");
     // contractProvider = Provider.of<ContractProvider>(context!, listen: false);
